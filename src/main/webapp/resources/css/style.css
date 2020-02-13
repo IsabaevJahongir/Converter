@@ -1,0 +1,40 @@
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+.wrap {
+
+    overflow: hidden;
+
+    border: red 2px solid;
+
+    background: pink;
+
+}
+
+.left {
+
+    float: left;
+
+    border: green 2px solid;
+
+    background: lightgreen;
+
+}
+
+.right {
+
+    float: right;
+
+    border: blue 2px solid;
+
+    background: lightblue;
+
+}
+
+
+
