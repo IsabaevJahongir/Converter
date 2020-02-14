@@ -22,7 +22,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String loginPage(Model model) {
-        model.addAttribute("userForm", new User());
+      //  model.addAttribute("userForm", new User());
 
         return "login";
     }

@@ -3,11 +3,10 @@ package com.isabaev.converterapp.repository.impl;
 
 import com.isabaev.converterapp.entity.Valute;
 import com.isabaev.converterapp.repository.ValuteRepository;
-import com.isabaev.converterapp.repository.ValuteXMLRepository;
+import com.isabaev.converterapp.repository.XMLRepository;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Repository;
 
 
@@ -35,7 +34,10 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public class ValuteXMLRepositoryImpl implements ValuteXMLRepository {
+public class XMLRepositoryImpl implements XMLRepository {
+
+    @Autowired
+    private ValuteRepository valuteRepo;
 
     private Date dateOfUpdate;
 
@@ -46,8 +48,7 @@ public class ValuteXMLRepositoryImpl implements ValuteXMLRepository {
 
 
 
-    @Override
-    public void downloadValuteDataXML() {
+    public void downloadXMLValuteData() {
 
         try {
             URL url = new URL(fromURL);
@@ -61,8 +62,6 @@ public class ValuteXMLRepositoryImpl implements ValuteXMLRepository {
 
     }
 
-
-    @Override
     public List<Valute> getListOfValuteFromXML() {
 
         List<Valute> list = new ArrayList<>();
@@ -126,7 +125,10 @@ public class ValuteXMLRepositoryImpl implements ValuteXMLRepository {
                 }
             }
 
+            Valute valute = new Valute(currentDate,"Российский рубль", 1, "000", "RUB", 1);
+            list.add(valute);
             this.dateOfUpdate = currentDate;
+
 
 
         } catch (ParserConfigurationException | SAXException | IOException | ParseException ex) {
@@ -137,9 +139,7 @@ public class ValuteXMLRepositoryImpl implements ValuteXMLRepository {
 
     }
 
-
-
-    public Date getDateOfUpdate() {
+    public Date dateOfUpdate() {
         return dateOfUpdate;
     }
 

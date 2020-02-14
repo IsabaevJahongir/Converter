@@ -19,32 +19,29 @@
 <div>
 
     <div>
-
-        <form method="POST" action="/login">
-
-            <div>
-                <h2>Вход в систему</h2>
-            </div>
-
-            <div>
-                <input name="username" type="text" placeholder="Имя" autofocus="true"/>
-            </div>
-
-            <div>
-                <input name="password" type="password" placeholder="Пароль"/>
-            </div>
-
-            <div>
-                <button type="submit">Log In</button>
-            </div>
-
-            <div>
-                <h4><a href="/registration">Зарегистрироваться</a></h4>
-            </div>
-
-        </form>
-
+        <h2>Вход в систему (Для зареганых)</h2>
     </div>
+
+    <form method="POST" action="/login" modelAttribute="userForm">
+
+        <div>
+            <input name="username" type="text" placeholder="Имя" autofocus="true"/>
+        </div>
+
+        <div>
+            <input name="password" type="password" placeholder="Пароль"/>
+        </div>
+
+        <div>
+            <button type="submit">Log In</button>
+        </div>
+
+        <div>
+            <h4><a href="/registration">Зарегистрироваться</a></h4>
+        </div>
+
+    </form>
+
 
 </div>
 

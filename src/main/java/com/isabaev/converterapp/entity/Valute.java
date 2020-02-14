@@ -1,9 +1,17 @@
 package com.isabaev.converterapp.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.Date;
 
+
+@Getter
+@Setter
 @Entity
+@ToString
 @Table(name = "valutes")
 public class Valute {
     @Id
@@ -28,60 +36,15 @@ public class Valute {
     @Column(name = "nominal")
     private int nominal;
 
-
-    public void setId(Long id) {
-        this.id = id;
+    public Valute() {
     }
 
-    public void setActualDate(Date actualDate) {
+    public Valute(Date actualDate, String name, double value, String numCode, String charCode, int nominal) {
         this.actualDate = actualDate;
-    }
-
-    public void setName(String name) {
         this.name = name;
-    }
-
-    public void setValue(double value) {
         this.value = value;
-    }
-
-    public void setNumCode(String numCode) {
         this.numCode = numCode;
-    }
-
-    public void setCharCode(String charCode) {
         this.charCode = charCode;
-    }
-
-    public void setNominal(int nominal) {
         this.nominal = nominal;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Date getActualDate() {
-        return actualDate;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public String getNumCode() {
-        return numCode;
-    }
-
-    public String getCharCode() {
-        return charCode;
-    }
-
-    public int getNominal() {
-        return nominal;
     }
 }

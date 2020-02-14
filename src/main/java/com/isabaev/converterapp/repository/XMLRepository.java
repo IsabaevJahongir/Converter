@@ -3,11 +3,13 @@ package com.isabaev.converterapp.repository;
 import com.isabaev.converterapp.entity.Valute;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
-public interface ValuteXMLRepository {
+public interface XMLRepository {
 
-    void downloadValuteDataXML();
+    void downloadXMLValuteData();
     List<Valute> getListOfValuteFromXML();
+    Date dateOfUpdate();
 
 }

@@ -19,45 +19,40 @@
         <h2>Конвертер</h2>
     </div>
 
-    <div>
-        <form action="/converter" method="post" name="drop_down_box">
+    <form action="/converter" method="POST">
 
-            <div>
-                <select name="menu" size="1">
-                    <option value="first">Первая позиция</option>
-                    <option selected="selected" value="second">Вторая позиция</option>
-                    <option value="third">Третья позиция</option>
-                    <option value="fourth">Четвертая позиция</option>
-                </select>
 
-                <div>
-                    <input name="text" type="text" placeholder="Сумма"/>
-                </div>
+        <div>
+            <select name="fromValute" size="1">
+                <c:forEach items="${allValutes}" var="fromValute">
+                    <option value="${fromValute.id}"> ${fromValute.charCode} ${" ("} ${fromValute.name} ${")"}</option>
+                </c:forEach>
+            </select>
 
-            </div>
+            <select name="toValute" size="1">
+                <c:forEach items="${allValutes}" var="toValute">
+                    <option value="${toValute.id}"> ${toValute.charCode} ${" ("} ${toValute.name} ${")"}</option>
+                </c:forEach>
+            </select>
+        </div>
 
-            <div>
-                <select name="menu" size="1">
-                    <option value="first">1</option>
-                    <option selected="selected" value="second">2</option>
-                    <option value="third">3</option>
-                    <option value="fourth">4</option>
-                </select>
+        <div>
+            <input name="fromAmount" type="text" placeholder="Исходная валюта"/>
 
-                <div>
-                    <input name="text" type="text" placeholder="Сумма"/>
-                </div>
-            </div>
+            <input name="toAmount" type="text" placeholder="Целевая валюта"/>
+        </div>
 
-            <div>
-                <button type="submit">Посчитать</button>
-            </div>
-    </div>
-</div>
+        <div>
+            <button type="submit">Конвертировать</button>
+        </div>
 
-    <div>
-        <a href="/">Главная</a>
-    </div>
+        <div>
+            <a href="/">Главная</a>
+        </div>
+
+
+    </form>
+
 
 </div>
 

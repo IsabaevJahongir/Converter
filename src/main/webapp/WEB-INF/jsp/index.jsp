@@ -12,11 +12,8 @@
 </head>
 
 <body>
-<div>
 
- <%--   <div>
-        <h3>Конвертер валют ${pageContext.request.userPrincipal.name}</h3>
-    </div>  --%>
+<div>
 
     <div>
         <h3>Конвертер валют</h3>
@@ -42,6 +39,7 @@
     </div>
 
 </div>
+
 </body>
 
 </html>

@@ -22,14 +22,14 @@
 
         </thead>
 
-        <c:forEach items="${allValutes}" var="valute">
+        <c:forEach items="${allValutes}" var="fromValute">
             <tr>
-                <td>${valute.id}</td>
-                <td>${valute.name}</td>
-                <td>${valute.nominal}</td>
-                <td>${valute.value}</td>
-                <td>${valute.actualDate}</td>
-                <td>${valute.charCode}</td>
+                <td>${fromValute.id}</td>
+                <td>${fromValute.name}</td>
+                <td>${fromValute.nominal}</td>
+                <td>${fromValute.value}</td>
+                <td>${fromValute.actualDate}</td>
+                <td>${fromValute.charCode}</td>
 
 
             </tr>

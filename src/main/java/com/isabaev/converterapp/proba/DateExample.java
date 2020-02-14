@@ -7,7 +7,7 @@ import java.util.Date;
 public class DateExample {
 
     public static void main(String[] args) throws ParseException {
-        Date date = new SimpleDateFormat("dd.MM.yyyy").parse("13.02.2020");
+        Date date = new SimpleDateFormat("dd.MM.yyyy").parse("14.02.2020");
         Date current = new Date();
 
         current.setHours(0);
@@ -20,7 +20,7 @@ public class DateExample {
 
 
 
-        if(date.getDate() == current.getDate() && date.getMonth() == current.getMonth() && date.getYear() == current.getYear()){
+        if(date.getDate() == current.getDate() + 1 && date.getMonth() == current.getMonth() && date.getYear() == current.getYear()){
             System.out.println("Даты совпадают");
         }else {
             System.out.println("Даты не совпадают");
