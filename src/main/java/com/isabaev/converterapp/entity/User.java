@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -16,7 +17,7 @@ import java.util.Set;
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Size(min=3, message = "Не меньше 3 знаков")
     private String username;
@@ -25,8 +26,12 @@ public class User implements UserDetails {
 
     @Transient
     private String passwordConfirm;
+
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    List<Conversion> conversionList;
 
     public User() {
     }

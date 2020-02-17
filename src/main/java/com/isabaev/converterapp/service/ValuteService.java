@@ -7,6 +7,8 @@ import com.isabaev.converterapp.repository.XMLRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -24,37 +26,71 @@ public class ValuteService {
     public ValuteService() {
     }
 
-    public Valute findValuteById(Long id){
+    public Valute findValuteById(Long id) {
         return valuteRepo.findById(id).get();
     }
 
+
     public List<Valute> getActualValutes() {
-        return valuteRepo.findAll();
+        return valuteRepo.getActualValute();
     }
 
 
     public boolean updateValuteDataBase() {
 
-        Date current = new Date();
-        Date dateOfUpdate = xmlRepo.dateOfUpdate();
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
-        System.out.println(dateOfUpdate);
+        Date currentDate = null;
+        try {
+            currentDate = dateFormat.parse(dateFormat.format(new Date()));
+        } catch (ParseException e) {
+            // Не должно произойти}
+        }
 
-        if (dateOfUpdate == null ||
-                dateOfUpdate.getDate() != (current.getDate() + 1) ||
-                dateOfUpdate.getMonth() != current.getMonth() ||
-                dateOfUpdate.getYear() != current.getYear()) {
+        Date dateWhenFileWasDownloaded = xmlRepo.getDateWhenXMLFileWasDownloadedFromInternet();
 
+        if (dateWhenFileWasDownloaded == null || currentDate.compareTo(dateWhenFileWasDownloaded) != 0) {
+
+
+        /*    System.out.println("Файл либо не загружен либо либо устарел");
+            System.out.println("File: was downloaded " + dateWhenFileWasDownloaded);
+            System.out.println("Current: " + currentDate);*/
 
             xmlRepo.downloadXMLValuteData();
-            List<Valute> valuteList = xmlRepo.getListOfValuteFromXML();
+            List<Valute> valutes = xmlRepo.getListOfValuteFromXML(); // загружаем дату из xml файла и заодно получаем валютные данные
 
-            for (Valute valute : valuteList) {
-                valuteRepo.save(valute);
+
+            Date dateFromXMLFile = xmlRepo.getDateFromXMLFile();
+            Date maxDateInDB = valuteRepo.findMaxDateInDB();
+
+            if (maxDateInDB == null || dateFromXMLFile.compareTo(maxDateInDB) > 0) {
+
+        /*
+                System.out.println("Новые данные будут загружены в бд");
+                System.out.println("XML date: " + dateFromXMLFile);
+                System.out.println("Current date: " + maxDateInDB);
+                */
+
+                xmlRepo.downloadXMLValuteData();
+                List<Valute> valuteList = xmlRepo.getListOfValuteFromXML();
+
+                for (Valute valute : valuteList) {
+                    valuteRepo.save(valute);
+                }
+            } else {
+                System.out.println("Данные добавлялись сегодня");
+                return false;
             }
-            return true;
+        } else {
+            System.out.printf("Данные в БД актуальны");
+            return false;
         }
-        return false;
+        return true;
+    }
+
+
+    public Date findMaxDateOfUpdate() {
+        return valuteRepo.findMaxDateInDB();
     }
 
 }

@@ -10,6 +10,7 @@ public interface XMLRepository {
 
     void downloadXMLValuteData();
     List<Valute> getListOfValuteFromXML();
-    Date dateOfUpdate();
+    Date getDateWhenXMLFileWasDownloadedFromInternet();
+    Date getDateFromXMLFile();
 
 }

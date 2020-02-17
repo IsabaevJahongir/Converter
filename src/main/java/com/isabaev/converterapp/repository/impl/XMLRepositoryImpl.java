@@ -2,11 +2,9 @@ package com.isabaev.converterapp.repository.impl;
 
 
 import com.isabaev.converterapp.entity.Valute;
-import com.isabaev.converterapp.repository.ValuteRepository;
 import com.isabaev.converterapp.repository.XMLRepository;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 
@@ -26,6 +24,7 @@ import org.apache.commons.io.FileUtils;
 
 
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -36,31 +35,32 @@ import java.util.List;
 @Repository
 public class XMLRepositoryImpl implements XMLRepository {
 
-    @Autowired
-    private ValuteRepository valuteRepo;
+    Date dateWhenFileWasDownloaded;
+    Date dateFromXMLFile;
 
-    private Date dateOfUpdate;
 
     private final String fromURL = "http://www.cbr.ru/scripts/XML_daily.asp";
     private final String toFile = "Valute data from internet/valute.xml";
+    private final String patterOfDateFormat = "dd.MM.yyyy";
     private final int connectionTimeout = 1000;
     private final int readTimeout = 1000;
 
 
-
     public void downloadXMLValuteData() {
-
         try {
             URL url = new URL(fromURL);
             File file = new File(toFile);
 
             FileUtils.copyURLToFile(url, file, connectionTimeout, readTimeout);
+            DateFormat dateFormat = new SimpleDateFormat(patterOfDateFormat);
+            dateWhenFileWasDownloaded = dateFormat.parse(dateFormat.format(new Date()));
 
-        } catch (IOException e) {
+        } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
 
     }
+
 
     public List<Valute> getListOfValuteFromXML() {
 
@@ -75,8 +75,9 @@ public class XMLRepositoryImpl implements XMLRepository {
 
 
             String stringDate = root.getAttributes().item(0).getTextContent();
-            Date currentDate = new SimpleDateFormat("dd.MM.yyyy").parse(stringDate);
+            Date dateFromXML = new SimpleDateFormat(patterOfDateFormat).parse(stringDate);
 
+            this.dateFromXMLFile = dateFromXML;
 
             for (int i = 0; i < nodeList.getLength(); i++) {
 
@@ -87,7 +88,7 @@ public class XMLRepositoryImpl implements XMLRepository {
                     NodeList valuteProps = node.getChildNodes();
 
                     Valute dbValute = new Valute();
-                    dbValute.setActualDate(currentDate);
+                    dbValute.setActualDate(dateFromXML);
 
                     for (int j = 0; j < valuteProps.getLength(); j++) {
 
@@ -125,11 +126,8 @@ public class XMLRepositoryImpl implements XMLRepository {
                 }
             }
 
-            Valute valute = new Valute(currentDate,"Российский рубль", 1, "000", "RUB", 1);
+            Valute valute = new Valute(dateFromXML, "Российский рубль", 1, "000", "RUB", 1);
             list.add(valute);
-            this.dateOfUpdate = currentDate;
-
-
 
         } catch (ParserConfigurationException | SAXException | IOException | ParseException ex) {
             ex.printStackTrace(System.out);
@@ -139,8 +137,14 @@ public class XMLRepositoryImpl implements XMLRepository {
 
     }
 
-    public Date dateOfUpdate() {
-        return dateOfUpdate;
+
+    public Date getDateWhenXMLFileWasDownloadedFromInternet() {
+        return dateWhenFileWasDownloaded;
+    }
+
+
+    public Date getDateFromXMLFile() {
+        return dateFromXMLFile;
     }
 
 }

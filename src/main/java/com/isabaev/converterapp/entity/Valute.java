@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 
 @Getter
@@ -15,10 +16,11 @@ import java.util.Date;
 @Table(name = "valutes")
 public class Valute {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "actual_date")
+    @Temporal(TemporalType.DATE)
     private Date actualDate;
 
     @Column(name = "name")
@@ -47,4 +49,5 @@ public class Valute {
         this.charCode = charCode;
         this.nominal = nominal;
     }
+
 }
