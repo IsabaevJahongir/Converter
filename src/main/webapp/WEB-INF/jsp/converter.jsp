@@ -71,7 +71,7 @@
 
     </form>
 
-    <div class="w3-container w3-grey w3-opacity w3-left-align w3-padding">
+    <div id =footer class="w3-container w3-grey w3-opacity w3-left-align w3-padding">
         <button class="w3-btn w3-round-large" onclick="location.href='/history'">История конвертаций пользавателя
         </button>
         <button class="w3-btn w3-round-large" onclick="location.href='/'">Главная</button>

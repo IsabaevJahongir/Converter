@@ -27,6 +27,7 @@ public class User implements UserDetails {
     @Transient
     private String passwordConfirm;
 
+    @Transient
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 

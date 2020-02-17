@@ -27,7 +27,7 @@ public class ConversionsService {
     }
 
     public List<Conversion> findAllByUserAndDate(User user, Date date){
-        return conversionRepo.findConversionsByDate(date);
+        return conversionRepo.findConversionsByUserAndDate(user, date);
     }
 
 

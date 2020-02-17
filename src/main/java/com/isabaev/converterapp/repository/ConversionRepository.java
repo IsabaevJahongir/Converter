@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ConversionRepository extends JpaRepository<Conversion, Long> {
     List<Conversion> findConversionsByUser(User user);
-    List<Conversion> findConversionsByDate(Date date);
+    List<Conversion> findConversionsByUserAndDate(User user,Date date);
 }

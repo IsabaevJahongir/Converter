@@ -21,6 +21,16 @@
         tr:nth-child(even) {
             background-color: #dddddd;
         }
+
+        #footer {
+            position: fixed; /* Фиксированное положение */
+            left: 0;
+            bottom: 0; /* Левый нижний угол */
+            padding: 10px; /* Поля вокруг текста */
+            background: #39b54a; /* Цвет фона */
+            color: #fff; /* Цвет текста */
+            width: 100%; /* Ширина слоя */
+        }
     </style>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -80,7 +90,7 @@
 </div>
 
 
-<div class="w3-container w3-grey w3-opacity w3-left-align w3-padding">
+<div id = footer class="w3-container w3-grey w3-opacity w3-left-align w3-padding">
     <button class="w3-btn w3-round-large" onclick="location.href='/history'">Вся история</button>
     <button class="w3-btn w3-round-large" onclick="location.href='/converter'">В конвертер</button>
     <button class="w3-btn w3-round-large" onclick="location.href='/'">Главная</button>
